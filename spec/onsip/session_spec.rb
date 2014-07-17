@@ -16,6 +16,14 @@ describe Session do
     end
   end
 
+  
+  describe "#echo" do
+    it 'returns a session id' do
+      session = Session.new
+      puts session.echo.content
+    end
+  end
+
   describe "#destroy" do
   end
 
