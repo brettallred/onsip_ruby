@@ -1,0 +1,1 @@
+{"Response":{"Context":{"Action":{"IsCompleted":"true"},"Request":{"IsValid":"true","DateTime":"2014-07-17T23:27:35+00:00","Duration":"1","Parameters":{"Parameter":[{"Name":"Action","Value":"Echo"},{"Name":"Foo","Value":"Bar"},{"Name":"Output","Value":"json"}]}},"Session":{"IsEstablished":"false"}},"Result":{"Echo":{}}}}
