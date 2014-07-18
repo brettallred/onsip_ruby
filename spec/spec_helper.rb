@@ -4,7 +4,20 @@ Bundler.setup
 
 require 'onsip' # and any other gems you need
 
+module Helpers
+  def read_file(filename)
+    sample_response_file =  File.open(SAMPLE_RESPONSE_PATH + filename, "rb")
+    return sample_response_file.read
+  end
+
+  def http_message_from_file(filename)
+    sample_response = read_file(filename)
+    HTTP::Message.new_response(sample_response)
+  end
+end
+
 RSpec.configure do |config|
+  config.include Helpers
   # Limit the spec run to only specs with the focus metadata. If no specs have
   # the filtering metadata and `run_all_when_everything_filtered = true` then
   # all specs will run.
@@ -20,4 +33,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   #config.order = 'random'
+
 end
+

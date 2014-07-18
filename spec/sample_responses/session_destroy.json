@@ -1,0 +1,1 @@
+{"Response":{"Context":{"Action":{"IsCompleted":"true"},"Request":{"IsValid":"true","DateTime":"2014-07-18T17:09:03+00:00","Duration":"13","Parameters":{"Parameter":[{"Name":"Action","Value":"SessionDestroy"},{"Name":"SessionId","Value":"qtuv80i7q8tvp5u7716pafvvv6"},{"Name":"Output","Value":"json"}]}},"Session":{"IsEstablished":"false"}},"Result":{"SessionDestroy":{}}}}

@@ -22,6 +22,7 @@ class Session
     get({ :Action => "SessionDestroy",
           :SessionId => id })
 
+
     return last_response["Response"]["Context"]["Session"]["IsEstablished"] == "false"
   end
 
@@ -46,6 +47,7 @@ class Session
 
   def get(query_parameters)
     http_response = @http_client.get(Onsip::Actions::BASE, query_parameters.merge({:Output => "json"}))
+   
     #TODO: Handle HTTP Response Errors
     self.last_response = JSON.parse(http_response.content)
   end

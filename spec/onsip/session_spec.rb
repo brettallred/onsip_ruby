@@ -4,6 +4,7 @@ require 'nokogiri'
 describe Session do
   USERNAME = 'scp'
   PASSWORD = 'p7tfjFnKC9xHrjA'
+  SAMPLE_RESPONSE_PATH = File.join(File.dirname(__FILE__), '..', 'sample_responses/' )
 
   describe ".new" do
     # currently the new method has no behavior
@@ -23,9 +24,8 @@ describe Session do
       expect(session.echo).to be_a(Hash)
     end
 
-    it 'makes an http call to Onsip::Actions::ECHO' do
-      sample_response_path = File.join(File.dirname(__FILE__), '..', 'sample_responses/' )
-      sample_response_file =  File.open(sample_response_path + "echo.json", "rb")
+    it 'makes external an http call to the Echo action' do
+      sample_response_file =  File.open(SAMPLE_RESPONSE_PATH + "echo.json", "rb")
       echo_response_message = HTTP::Message.new_response(sample_response_file.read)
       expect_any_instance_of(HTTPClient).to receive(:get).with(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" }).and_return(echo_response_message)
       session = Session.new
@@ -34,11 +34,20 @@ describe Session do
   end
 
   describe "#destroy" do
-    it '' do
+    it 'returns true when session is deleted' do
       session = Session.new
       session.authenticate(USERNAME, PASSWORD)
       expect(session.destroy).to be_true
     end
-  end
 
+    it 'makes external an http call to the Session Destroy action' do
+      session = Session.new
+      session.authenticate(USERNAME, PASSWORD)
+
+      expect_any_instance_of(HTTPClient).to receive(:get).with(Onsip::Actions::BASE, { :Action => "SessionDestroy", :SessionId => session.id, 
+                                                                                       :Output => "json" })
+                                                         .and_return(http_message_from_file("session_destroy.json"))
+      session.destroy
+    end
+  end
 end
