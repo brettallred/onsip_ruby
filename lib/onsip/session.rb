@@ -1,21 +1,23 @@
-class Session
+require 'singleton'
 
-  ## 
-  # CONSTRUCTOR
-  #
-  def initialize
-    @http_client = HTTPClient.new
-  end
+class Onsip::Session < Onsip::RemoteResource
+  include ::Singleton
 
   ##
   # INSTANCE METHODS
   #
   def authenticate(username, password)
+
     get({ :Action => "SessionCreate",
           :Username => username,
           :Password => password })
+    self.authenticated = true
 
-    return true
+    return authenticated? 
+  end
+
+  def authenticated?
+    return @authenticated
   end
 
   def destroy
@@ -27,7 +29,7 @@ class Session
   end
 
   def echo 
-    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" })
+    http_response = get({ :Action => "Echo" })
     return JSON.parse(http_response.content)
   end
 
@@ -35,20 +37,10 @@ class Session
     @id ||= last_response["Response"]["Context"]["Session"]["SessionId"]
   end
 
-  private
+  private 
 
-  def last_response
-    @last_response
+  def authenticated=(authenticated)
+    @authenticated = authenticated
   end
 
-  def last_response=(last_response)
-    @last_response = last_response
-  end
-
-  def get(query_parameters)
-    http_response = @http_client.get(Onsip::Actions::BASE, query_parameters.merge({:Output => "json"}))
-   
-    #TODO: Handle HTTP Response Errors
-    self.last_response = JSON.parse(http_response.content)
-  end
 end

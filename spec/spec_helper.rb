@@ -4,7 +4,15 @@ Bundler.setup
 
 require 'onsip' # and any other gems you need
 
-module Helpers
+
+
+
+module SpecHelper
+
+  USERNAME = '-- INSERT ONSIP USERNAME --'
+  PASSWORD = '-- INSERT ONSIP PASSWORD --'
+  SAMPLE_RESPONSE_PATH = File.join(File.dirname(__FILE__), 'sample_responses/' )
+
   def read_file(filename)
     sample_response_file =  File.open(SAMPLE_RESPONSE_PATH + filename, "rb")
     return sample_response_file.read
@@ -14,10 +22,11 @@ module Helpers
     sample_response = read_file(filename)
     HTTP::Message.new_response(sample_response)
   end
+
 end
 
 RSpec.configure do |config|
-  config.include Helpers
+  config.include SpecHelper
   # Limit the spec run to only specs with the focus metadata. If no specs have
   # the filtering metadata and `run_all_when_everything_filtered = true` then
   # all specs will run.
