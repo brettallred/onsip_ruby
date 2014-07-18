@@ -27,8 +27,11 @@ It is not recommended to use this gem at the current time but and additions to t
 ## Road Map
 
 Planned Releases
+
 v0.0.1 - Implement the Session actions and the CdrBrowse action
+
 v0.0.2 - Implement proper error handling for http responses
+
 v0.0.3 - Implement the remaining get requests
 
 Releases
@@ -37,11 +40,11 @@ none yet :)
 
 ## Usage
 
-### Authentication 
+Authentication 
+---
 http://developer.onsip.com/admin-api/Authentication/#sessioncreate
 
-Creating a Session
----
+### Creating a Session
 
 Before making any API calls you need to authenticate
 
@@ -49,31 +52,43 @@ Session returns a boolean indicating whether the session was made successfully.
 Because the session is a singleton you don't need to store any session or pass
 the session id to any further calls.
 
-``` Session.instance.authenticate("username", "password")
+```ruby
+  Session.instance.authenticate("username", "password") 
+```
 
 
-Destroying a Session
+### Destroying a Session
+
+```ruby
+  Session.instance.destroy 
+```
+
+
+
+Call Detail Records 
 ---
 
-```Session.instance.destroy
+### Search 
 
-
-Browse Call Detail Records
----
-
+```ruby
 call_data_records = CallDataRecord.where(:session_id => session_id,
                                          :account_id => account_id,
                                          :start_at => start_date_time,
                                          :end_at => end_date_time,
                                          :order_by => :date_time,
                                          :limit => )
+``` 
 
+
+### Count 
+
+```ruby
 call_data_record.count = CallDataRecord.count(:session_id => session_id,
                                          :account_id => account_id,
                                          :start_at => start_date_time,
                                          :end_at => end_date_time
                                          )
-
+```
 
 
 
