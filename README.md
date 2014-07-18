@@ -21,16 +21,16 @@ Or install it yourself as:
 
 ## Getting Started
 
-The Onsip for Ruby gem is currently in development and many things missing such as proper error handling.
+The Onsip for Ruby gem is currently in development and many things are missing such as proper error handling.
 It is not recommended to use this gem at the current time but and additions to the gem would be appreciated.
 
 ## Road Map
 
 Planned Releases
 
-v0.0.1 - Implement the Session actions and the CdrBrowse action
-
-v0.0.2 - Implement proper error handling for http responses
+v0.0.1 (July 2014) - Implement the Session actions and the CdrBrowse action
+ 
+v0.0.2 (July 2014)- Implement proper error handling for http responses
 
 v0.0.3 - Implement the remaining get requests
 
