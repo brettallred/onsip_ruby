@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["brettallred@gmail.com"]
   spec.summary       = %q{API wrapper for the onsip Admin API }
   spec.description   = %q{API wrapper for the onsip Admin API }
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/brettallred/onsip_ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
