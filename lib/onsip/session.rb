@@ -1,20 +1,28 @@
 class Session
 
-  def id 
-    @id ||= last_response["Response"]["Context"]["Session"]["SessionId"]
-  end
-
+  ## 
+  # CONSTRUCTOR
+  #
   def initialize
     @http_client = HTTPClient.new
   end
 
+  ##
+  # INSTANCE METHODS
+  #
   def authenticate(username, password)
     get({ :Action => "SessionCreate",
-          :Output => "json",
           :Username => username,
           :Password => password })
 
     return true
+  end
+
+  def destroy
+    get({ :Action => "SessionDestroy",
+          :SessionId => id })
+
+    return last_response["Response"]["Context"]["Session"]["IsEstablished"] == "false"
   end
 
   def echo 
@@ -22,12 +30,8 @@ class Session
     return JSON.parse(http_response.content)
   end
 
-  def destroy
-    get({ :Action => "SessionDestroy",
-          :Output => "json",
-          :SessionId => id })
-
-    return last_response["Response"]["Context"]["Session"]["IsEstablished"] == "false"
+  def id 
+    @id ||= last_response["Response"]["Context"]["Session"]["SessionId"]
   end
 
   private
@@ -41,7 +45,8 @@ class Session
   end
 
   def get(query_parameters)
-    http_response = @http_client.get(Onsip::Actions::BASE, query_parameters)
+    http_response = @http_client.get(Onsip::Actions::BASE, query_parameters.merge({:Output => "json"}))
+    #TODO: Handle HTTP Response Errors
     self.last_response = JSON.parse(http_response.content)
   end
 end
