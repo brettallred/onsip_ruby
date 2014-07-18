@@ -1,7 +1,7 @@
 class Session
 
   def id 
-    @id ||= session_response["Response"]["Context"]["Session"]["SessionId"]
+    @id ||= last_response["Response"]["Context"]["Session"]["SessionId"]
   end
 
   def initialize
@@ -9,12 +9,11 @@ class Session
   end
 
   def authenticate(username, password)
-    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "SessionCreate",
-                                                             :Output => "json",
-                                                             :Username => username,
-                                                             :Password => password })
+    get({ :Action => "SessionCreate",
+          :Output => "json",
+          :Username => username,
+          :Password => password })
 
-    self.session_response = JSON.parse(http_response.content)
     return true
   end
 
@@ -24,21 +23,25 @@ class Session
   end
 
   def destroy
-    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "SessionDestroy",
-                                                             :Output => "json",
-                                                             :SessionId => id })
+    get({ :Action => "SessionDestroy",
+          :Output => "json",
+          :SessionId => id })
 
-    self.session_response = JSON.parse(http_response.content)
-    return true
+    return last_response["Response"]["Context"]["Session"]["IsEstablished"] == "false"
   end
 
   private
 
-  def session_response
-    @session_response
+  def last_response
+    @last_response
   end
 
-  def session_response=(session_response)
-    @session_response = session_response
+  def last_response=(last_response)
+    @last_response = last_response
+  end
+
+  def get(query_parameters)
+    http_response = @http_client.get(Onsip::Actions::BASE, query_parameters)
+    self.last_response = JSON.parse(http_response.content)
   end
 end
