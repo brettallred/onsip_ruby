@@ -1,7 +1,6 @@
 require 'spec_helper'
-require 'nokogiri'
 
-describe Session do
+describe CallDetailRecord do
   USERNAME = 'scp'
   PASSWORD = 'p7tfjFnKC9xHrjA'
   SAMPLE_RESPONSE_PATH = File.join(File.dirname(__FILE__), '..', 'sample_responses/' )
@@ -25,9 +24,8 @@ describe Session do
     end
 
     it 'makes external an http call to the Echo action' do
-      sample_response_file =  File.open(SAMPLE_RESPONSE_PATH + "echo.json", "rb")
-      echo_response_message = HTTP::Message.new_response(sample_response_file.read)
-      expect_any_instance_of(HTTPClient).to receive(:get).with(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" }).and_return(echo_response_message)
+      json_response = http_message_from_file("echo.json")
+      expect_any_instance_of(HTTPClient).to receive(:get).with(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" }).and_return(json_response)
       session = Session.new
       session.echo
     end
@@ -44,9 +42,9 @@ describe Session do
       session = Session.new
       session.authenticate(USERNAME, PASSWORD)
 
+      json_response = http_message_from_file("session_destroy.json")
       expect_any_instance_of(HTTPClient).to receive(:get).with(Onsip::Actions::BASE, { :Action => "SessionDestroy", :SessionId => session.id, 
-                                                                                       :Output => "json" })
-                                                         .and_return(http_message_from_file("session_destroy.json"))
+                                                                                       :Output => "json" }).and_return(json_response)
       session.destroy
     end
   end
