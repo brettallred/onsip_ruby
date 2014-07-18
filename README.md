@@ -53,14 +53,14 @@ Because the session is a singleton you don't need to store any session or pass
 the session id to any further calls.
 
 ```ruby
-  Session.instance.authenticate("username", "password") 
+  Onsip::Session.instance.authenticate("username", "password") 
 ```
 
 
 ### Destroying a Session
 
 ```ruby
-  Session.instance.destroy 
+  Onsip::Session.instance.destroy 
 ```
 
 
@@ -71,7 +71,7 @@ Call Detail Records
 ### Search 
 
 ```ruby
-call_data_records = CallDataRecord.where(:session_id => session_id,
+call_data_records = Onsip::CallDataRecord.where(:session_id => session_id,
                                          :account_id => account_id,
                                          :start_at => start_date_time,
                                          :end_at => end_date_time,
@@ -83,7 +83,7 @@ call_data_records = CallDataRecord.where(:session_id => session_id,
 ### Count 
 
 ```ruby
-call_data_record.count = CallDataRecord.count(:session_id => session_id,
+call_data_record.count = Onsip::CallDataRecord.count(:session_id => session_id,
                                          :account_id => account_id,
                                          :start_at => start_date_time,
                                          :end_at => end_date_time
