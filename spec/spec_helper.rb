@@ -1,13 +1,16 @@
 require 'bundler/setup'
 require 'onsip' 
+require 'yaml'
 
 Bundler.setup
 
 module SpecHelper
+  CREDENTIALS = YAML.load_file(File.join(__dir__, 'credentials.yml'))
 
-  USERNAME = '-- INSERT ONSIP USERNAME --'
-  PASSWORD = '-- INSERT ONSIP PASSWORD --'
-  SAMPLE_RESPONSE_PATH = File.join(File.dirname(__FILE__), 'sample_responses/' )
+  USERNAME = CREDENTIALS["username"] 
+  PASSWORD = CREDENTIALS["password"]
+
+  SAMPLE_RESPONSE_PATH = File.join(__dir__, 'sample_responses/' )
 
   def read_file(filename)
     sample_response_file =  File.open(SAMPLE_RESPONSE_PATH + filename, "rb")

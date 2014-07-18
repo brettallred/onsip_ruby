@@ -8,12 +8,24 @@ describe Onsip::Session do
       subject.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
       expect(subject.id).not_to be_nil
     end
+
+
+    it 'sets authenticated? to true' do
+      subject.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
+      expect(subject.authenticated?).to be_true
+    end
   end
 
   describe "#destroy" do
     it 'returns true when session is deleted' do
       subject.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
       expect(subject.destroy).to be_true
+    end
+
+    it 'sets authenticated? to false' do
+      subject.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
+      subject.destroy
+      expect(subject.authenticated?).to be_false
     end
 
     it 'makes external an http call to the Session Destroy action' do

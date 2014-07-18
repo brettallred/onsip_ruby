@@ -1,4 +1,4 @@
-# Onsip
+# OnSip for Ruby
 
 Ruby gem that wraps the Onsip Admin API
 
@@ -18,8 +18,24 @@ Or install it yourself as:
 
     $ gem install onsip
 
-## Usage
 
+## Getting Started
+
+The Onsip for Ruby gem is currently in development and many things missing such as proper error handling.
+It is not recommended to use this gem at the current time but and additions to the gem would be appreciated.
+
+## Road Map
+
+Planned Releases
+v0.0.1 - Implement the Session actions and the CdrBrowse action
+v0.0.2 - Implement proper error handling for http responses
+v0.0.3 - Implement the remaining get requests
+
+Releases
+
+none yet :)
+
+## Usage
 
 ### Authentication 
 http://developer.onsip.com/admin-api/Authentication/#sessioncreate
@@ -27,11 +43,19 @@ http://developer.onsip.com/admin-api/Authentication/#sessioncreate
 Creating a Session
 ---
 
-session = Session.new(
-session_id = session.authenticate("username", "password")
+Before making any API calls you need to authenticate
+
+Session returns a boolean indicating whether the session was made successfully.
+Because the session is a singleton you don't need to store any session or pass
+the session id to any further calls.
+
+``` Session.instance.authenticate("username", "password")
 
 
-session.destroy
+Destroying a Session
+---
+
+```Session.instance.destroy
 
 
 Browse Call Detail Records

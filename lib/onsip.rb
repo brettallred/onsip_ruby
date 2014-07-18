@@ -1,5 +1,4 @@
 require "httpclient"
-require "nokogiri"
 require "json"
 require "onsip/remote_resource"
 require "onsip/session"

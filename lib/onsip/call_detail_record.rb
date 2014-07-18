@@ -37,7 +37,7 @@ class Onsip::CallDetailRecord < Onsip::RemoteResource
 
   def where(options = {})
     query = {:Action => "CdrBrowse",
-             :SessionId => Onsip::Session.instance.id}.merge(options)
+             :SessionId => Onsip::Session.instance.id }.merge(options)
 
     response = get(query)
     call_detail_records = response["Response"]["Result"]["CdrBrowse"]["Cdrs"]["Cdr"]

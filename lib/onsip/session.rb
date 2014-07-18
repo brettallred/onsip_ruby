@@ -11,6 +11,7 @@ class Onsip::Session < Onsip::RemoteResource
     get({ :Action => "SessionCreate",
           :Username => username,
           :Password => password })
+
     self.authenticated = true
 
     return authenticated? 
@@ -24,13 +25,14 @@ class Onsip::Session < Onsip::RemoteResource
     get({ :Action => "SessionDestroy",
           :SessionId => id })
 
+    self.authenticated = false
 
     return last_response["Response"]["Context"]["Session"]["IsEstablished"] == "false"
   end
 
   def echo 
-    http_response = get({ :Action => "Echo" })
-    return JSON.parse(http_response.content)
+    get({ :Action => "Echo" })
+    return last_response
   end
 
   def id 
