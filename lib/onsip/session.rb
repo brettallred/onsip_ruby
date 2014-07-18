@@ -9,24 +9,28 @@ class Session
   end
 
   def authenticate(username, password)
-    result = @http_client.get(Onsip::Actions::BASE, { :Action => "SessionCreate",
-                                                      :Output => "json",
-                                                      :Username => username,
-                                                      :Password => password })
+    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "SessionCreate",
+                                                             :Output => "json",
+                                                             :Username => username,
+                                                             :Password => password })
 
-    self.session_response = JSON.parse(result.content)
+    self.session_response = JSON.parse(http_response.content)
     return true
   end
 
   def echo 
-    response = @http_client.get(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" })
-    response_body = JSON.parse(response.content)
-    return response_body
+    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "Echo", :Output => "json" })
+    return JSON.parse(http_response.content)
   end
 
   def destroy
-  end
+    http_response = @http_client.get(Onsip::Actions::BASE, { :Action => "SessionDestroy",
+                                                             :Output => "json",
+                                                             :SessionId => id })
 
+    self.session_response = JSON.parse(http_response.content)
+    return true
+  end
 
   private
 

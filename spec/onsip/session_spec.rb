@@ -31,10 +31,14 @@ describe Session do
       session = Session.new
       session.echo
     end
-
   end
 
   describe "#destroy" do
+    it '' do
+      session = Session.new
+      session.authenticate(USERNAME, PASSWORD)
+      expect(session.destroy).to be_true
+    end
   end
 
 end
