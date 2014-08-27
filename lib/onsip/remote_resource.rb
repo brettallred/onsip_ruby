@@ -19,7 +19,7 @@ class Onsip::RemoteResource
   private 
 
   def http_client
-    @http_client ||= HTTPClient.new
+    @http_client ||= ::HTTPClient.new
   end
 
   def last_response
@@ -31,10 +31,10 @@ class Onsip::RemoteResource
   end
 
   def get(query_parameters)
-    http_response = http_client.get(Onsip::Actions::BASE, query_parameters.merge({:Output => "json"}))
+    http_response = http_client.get(::Onsip::Actions::BASE, query_parameters.merge({:Output => "json"}))
 
     #TODO: Handle HTTP Response Errors
-    self.last_response = JSON.parse(http_response.content)
+    self.last_response = ::JSON.parse(http_response.content)
   end
 
 
