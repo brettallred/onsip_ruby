@@ -1,6 +1,6 @@
 require 'singleton'
 
-class Onsip::Session < Onsip::RemoteResource
+class Onsip::Session < ::Onsip::RemoteResource
   include ::Singleton
 
   ##

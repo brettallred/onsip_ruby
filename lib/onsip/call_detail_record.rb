@@ -1,4 +1,4 @@
-class Onsip::CallDetailRecord < Onsip::RemoteResource
+class Onsip::CallDetailRecord < ::Onsip::RemoteResource
 
   ##
   # DYNAMIC ATTRIBUTES
