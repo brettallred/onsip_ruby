@@ -3,6 +3,7 @@ require "json"
 require "onsip/remote_resource"
 require "onsip/session"
 require "onsip/call_detail_record"
+require "onsip/user"
 require "onsip/version"
 
 module Onsip
