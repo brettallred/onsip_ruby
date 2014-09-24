@@ -1,5 +1,7 @@
 require "httpclient"
 require "json"
+require "active_support"
+require 'active_support/core_ext'
 require "onsip/remote_resource"
 require "onsip/session"
 require "onsip/call_detail_record"

@@ -23,8 +23,11 @@ module Onsip
     # CLASS METHODS
     #
 
+    def self.today
+      self.new.where(:StartDateTime => DateTime.now.beginning_of_day, :EndDateTime => DateTime.now.end_of_day )
+    end
     def self.current_month
-      self.new.where()
+      self.new.where(:Offset => 0)
     end
 
     def self.last_month
