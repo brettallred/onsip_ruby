@@ -49,7 +49,7 @@ module Onsip
     # CalcFound	true	Calculate how many records there would be in the result set, disregarding any Limit parameter.
     
     # http://developer.onsip.com/admin-api/Call-Detail-Records/
-    def self.where(*options)
+    def self.where(**options)
       instance = self.new
       return instance.where(options)
     end
