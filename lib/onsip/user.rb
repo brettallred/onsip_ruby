@@ -37,11 +37,11 @@ module Onsip
     # INSTANCE METHODS
     #
     def where(query_options = {})
-      number_of_records = count_remote_records(query_options)
+      # number_of_records = count_remote_records(query_options)
       
       query = {:Action => "UserBrowse",
                :SessionId => Onsip::Session.instance.id,
-               :Limit => number_of_records}.merge(query_options)
+               :Limit => 2500}.merge(query_options)
 
       response = get(query)
 
