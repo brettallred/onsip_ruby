@@ -1,0 +1,16 @@
+"Action"=>
+{
+  "IsCompleted"=>"false"
+}, 
+"Request"=>{
+  "IsValid"=>"false", "DateTime"=>"2015-01-16T15:03:06+00:00", "Duration"=>"13", "Parameters"=>{
+    "Parameter"=>[{
+      "Name"=>"Action", "Value"=>"CdrBrowse"}, {
+      "Name"=>"SessionId", "Value"=>"hovhqjs08eccqnpskersb74fm4"}, {
+      "Name"=>"Limit", "Value"=>"25098"}, {
+      "Name"=>"StartDateTime", "Value"=>"2014-07-16T08:03:06-07:00"}, {
+      "Name"=>"EndDateTime", "Value"=>"2015-01-16T08:03:06-07:00"}, {
+      "Name"=>"Output", "Value"=>"json"}, {
+      "Name"=>"OrderBy", "Value"=>"DateTime DESC"}, {
+      "Name"=>"Offset", "Value"=>"0"}, {"Name"=>"CalcFound", "Value"=>"true"}]}, 
+    "Errors"=> {"Error"=>{"Parameter"=>"Limit", "Code"=>"Integer.TooBig", "Message"=>"Value may be no more than 25000"}}}, "Session"=>{"IsEstablished"=>"true", "SessionId"=>"hovhqjs08eccqnpskersb74fm4", "UserId"=>"226504", "Roles"=>{"Role"=>{"Name"=>"Account Admin"}}}}
