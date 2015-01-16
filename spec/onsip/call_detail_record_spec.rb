@@ -19,8 +19,17 @@ describe Onsip::CallDetailRecord do
       session.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
       call_detail_records = Onsip::CallDetailRecord.today
       puts call_detail_records.count
-      any_records_befor_today = call_detail_records.any? { |cdr| cdr.DateTime < DateTime.now.beginning_of_day }
-      expect(any_records_befor_today).to be false
+      any_records_before_today = call_detail_records.any? { |cdr| cdr.DateTime < DateTime.now.beginning_of_day }
+      expect(any_records_before_today).to be false
+    end
+  end
+
+  describe ".where" do
+    it 'returns a maximum of 2500 of Onsip::CallDetailRecord' do
+      session = ::Onsip::Session.instance
+      session.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
+      call_detail_records = ::Onsip::CallDetailRecord.where(:StartDateTime => DateTime.now - 6.months, :EndDateTime => DateTime.now)
+      expect(call_detail_records.count).to equal(2500)
     end
   end
 

@@ -59,13 +59,19 @@ module Onsip
     #
 
     def where(query_options = {})
-      number_of_records = count_remote_records(query_options)
+      #number_of_records = count_remote_records(query_options)
       
       query = {:Action => "CdrBrowse",
                :SessionId => Onsip::Session.instance.id,
-               :Limit => number_of_records}.merge(query_options)
+               :Limit => 2500}.merge(query_options)
 
       response = get(query)
+
+      errors = response["Response"]["Context"]["Request"]["Errors"]
+
+      if errors.present?
+        fail errors["Error"]["Message"]
+      end
 
       call_detail_records = response["Response"]["Result"]["CdrBrowse"]["Cdrs"]["Cdr"]
 
