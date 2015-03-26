@@ -24,6 +24,17 @@ describe Onsip::CallDetailRecord do
     end
   end
 
+  describe ".last_hour" do
+    it 'returns an array of Onsip::CallDetailRecord' do
+      session = ::Onsip::Session.instance
+      session.authenticate(::SpecHelper::USERNAME, ::SpecHelper::PASSWORD)
+      call_detail_records = Onsip::CallDetailRecord.last_hour
+      puts call_detail_records.count
+      any_records_before_today = call_detail_records.any? { |cdr| cdr.DateTime < DateTime.now.beginning_of_day }
+      expect(any_records_before_today).to be false
+    end
+  end
+
   describe ".where" do
     it 'returns a maximum of 2500 of Onsip::CallDetailRecord' do
       session = ::Onsip::Session.instance
